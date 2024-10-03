@@ -5,8 +5,9 @@
 
 
   <div class="container mx-auto px-4 sm:px-6 lg:p-8">
-
     <div class="flex gap-6">
+
+      {{-- BLOCK IMAGE --}}
       <div class="w-2/3">
         <div class="mb-4">
           @if ($space->images->isNOtEmpty())
@@ -18,24 +19,83 @@
           @endif
         </div>
         <div class="grid grid-cols-5 gap-2">
-          {{-- <img src="{{ asset($space->images->first()->path) }}" alt="{{ $space->title }}"
-            class="w-full h-20 object-cover rounded cursor-pointer thumbnail active" onclick="changeImage(this.src)"> --}}
           @if($space->images)
             @foreach($space->images as $image)
-              <img src="{{ $image->path }}" alt="Фото пространства" class="w-full h-20 object-cover rounded cursor-pointer thumbnail" onclick="changeImage(this.src)">
+              <img src="{{ $image->path }}" alt="{{ $space->title }}" class="w-full h-20 object-cover rounded cursor-pointer thumbnail" onclick="changeImage(this.src)">
             @endforeach
           @endif
         </div>
       </div>
+      {{-- END BLOCK IMAGE --}}
+
+      {{-- BLOCK MAIN CONTENT  --}}
       <div class="w-1/3">
-        <p class="mb-2"><strong>Район:</strong> {{ $space->district->title }}</p>
-        <p class="mb-2"><strong>Адрес:</strong> {{ $space->address }}</p>
-        <p class="mb-2"><strong>Телефон:</strong> {{ $space->phone }}</p>
-        <p class="mb-2"><strong>Веб-сайт:</strong> <a href="{{ $space->website }}" class="text-blue-500 hover:underline">{{ $space->website }}</a></p>
-        <p class="mb-2"><strong>Описание:</strong> {{ $space->description }}</p>
-        <p class="mb-2"><strong>Как добраться:</strong> {{ $space->how_to_get }}</p>
+        <div class="border p-4 rounded-lg">
+          <p class="mb-2"><strong>Адрес:</strong> {{ $space->address }}</p>
+          <p class="mb-2"><strong>Телефон:</strong> {{ $space->phone }}</p>
+          <p class="mb-2"><strong>Веб-сайт:</strong> <a href="{{ $space->website }}" class="text-blue-500 hover:underline">{{ $space->website }}</a></p>
+          <p class="mb-2"><strong>Почта:</strong> <a href="mailto:{{ $space->email }}" class="text-blue-500 hover:underline">{{ $space->email }}</a></p>
+          <p class="mb-2"><strong>Геолокация:</strong>
+            <a href="https://www.yandex.ru/maps/?ll={{ $space->longitude }},{{ $space->latitude }}&z=14" target="_blank" class="text-blue-500">
+              {{ $space->longitude }},{{ $space->latitude }}
+            </a>
+          </p>
+          <p class="mb-2"><strong>Район:</strong> {{ $space->district->title }}</p>
+        </div>
       </div>
     </div>
+    {{-- END BLOCK MAIN CONTENT --}}
+
+    {{-- BLOCK DESCRIPTION --}}
+    <div class="mt-8 py-4">
+      <div class="mb-8">
+        <h2 class="text-xl pb-8">Описание</h2>
+        <p class="">{{ $space->description }}</p>
+      </div>
+      <div class="mb-8">
+        <h2 class="text-xl pb-8">Как проехать</h2>
+        <p class="">{{ $space->how_to_get }}</p>
+      </div>
+    </div>
+
+    <div class="tabs flex flex-col w-full md:w-[360px]">
+      <!-- tabs header -->
+      <div class="relative flex flex-row items-center">
+        <button data-type="tabs" data-target="#tab-4"
+          class="active w-1/3 md:w-[120px] h-16 px-4 flex flex-col justify-end items-center gap-1 relative py-2 hover:bg-surface-100 dark:hover:bg-surfacedark-100">
+          <span class="material-symbols-outlined">music_note</span>
+          <p class="text-sm tracking-[.00714em]">Music</p>
+        </button>
+        <button data-type="tabs" data-target="#tab-5"
+          class="w-1/3 md:w-[120px] h-16 px-4 flex flex-col justify-end items-center gap-1 relative py-2 hover:bg-surface-100 dark:hover:bg-surfacedark-100">
+          <span class="material-symbols-outlined">image</span>
+          <p class="text-sm tracking-[.00714em]">Photos</p>
+        </button>
+        <button data-type="tabs" data-target="#tab-6"
+          class="w-1/3 md:w-[120px] h-16 px-4 flex flex-col justify-end items-center gap-1 relative py-2 hover:bg-surface-100 dark:hover:bg-surfacedark-100">
+          <span class="material-symbols-outlined">videocam</span>
+          <p class="text-sm tracking-[.00714em]">Video</p>
+        </button>
+        <!-- indicator -->
+        <div role="indicator"
+          class="absolute left-0 bottom-0 transition-all duration-200 ease-in-out bg-primary-600 dark:bg-primary-200 w-1/3 md:w-[120px] h-0.5 rounded-t-full">
+        </div>
+      </div>
+      <hr class="border-gray-200 dark:border-gray-700">
+      <!-- tabs content -->
+      <div class="flex flex-col">
+        <div id="tab-4" role="tabpanel" class="active [&.active]:block hidden py-4 transition duration-400 ease-in-out">
+          <h3>Tabs content 1</h3>
+        </div>
+        <div id="tab-5" role="tabpanel" class="[&.active]:block hidden py-4 transition duration-400 ease-in-out">
+          <h3>Tabs content 2</h3>
+        </div>
+        <div id="tab-6" role="tabpanel" class="[&.active]:block hidden py-4 transition duration-400 ease-in-out">
+          <h3>Tabs content 3</h3>
+        </div>
+      </div>
+    </div>
+    {{-- END BLOCK DESCRIPTION --}}
 
     {{-- <div class="mt-8">
       @can('update', $space)
