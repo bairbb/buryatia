@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'map_key' => env('YANDEX_MAP_KEY'),
+
 ];
