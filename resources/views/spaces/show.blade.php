@@ -124,22 +124,16 @@
       map.addChild(new YMapDefaultSchemeLayer());
       map.addChild(new YMapDefaultFeaturesLayer());
 
-      // const markerElement = document.createElement('div');
-
       // Инициализируйте маркер
       const marker = new YMapDefaultMarker(
         {
+          // coordinates: [{{ $space->latitude }}, {{ $space->longitude }}],
           coordinates: [107.640243, 51.804262],
           draggable: false
         }
-        // markerElement
       );
 
-      // Добавьте маркер на карту
       map.addChild(marker);
-
-      // Добавьте произвольную HTML-разметку внутрь содержимого маркера
-      // markerElement.innerHTML = '<h1>Это тут</h1>';
     }
   </script>
 
