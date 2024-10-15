@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Space;
 use App\Models\District;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SpaceController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +32,9 @@ class SpaceController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Space::class);
+        $districts = District::all();
+        return view('spaces.create', compact('districts'));
     }
 
     /**
@@ -37,7 +42,43 @@ class SpaceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Space::class);
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'district' => 'required|exists:districts,id',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|email',
+            'website' => 'required|url',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'how_to_get' => 'required|string',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $space = Space::create([
+            'title' => $validatedData['title'],
+            'slug' => Str::slug($validatedData['title']),
+            'district_id' => $validatedData['district'],
+            'longitude' => $validatedData['longitude'],
+            'latitude' => $validatedData['latitude'],
+            'description' => $validatedData['description'],
+            'address' => $validatedData['address'],
+            'phone' => $validatedData['phone'],
+            'email' => $validatedData['email'],
+            'website' => $validatedData['website'],
+            'how_to_get' => $validatedData['how_to_get'],
+        ]);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images', 'public');
+                $space->images()->create(['path' => $path]);
+            }
+        }
+
+        return redirect()->route('spaces.index')->with('success', 'Место успешно добавлено.');
     }
 
     /**
@@ -52,17 +93,58 @@ class SpaceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Space $space)
+    public function edit($slug)
     {
-        //
+        $this->authorize('update', Space::class);
+        $space = Space::where('slug', $slug)->with(['images', 'district'])->firstOrFail();
+        $districts = District::all();
+        return view('spaces.edit', compact('space', 'districts'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Space $space)
+    public function update(Request $request, $slug)
     {
-        //
+        $this->authorize('update', Space::class);
+        $space = Space::where('slug', $slug)->with(['images', 'district'])->firstOrFail();
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'district' => 'required|exists:districts,id',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|string',
+            'website' => 'required|url',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'how_to_get' => 'required|string',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $space->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'district_id' => $request->district,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+            'description' => $request->description,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'website' => $request->website,
+            'how_to_get' => $request->how_to_get,
+        ]);
+
+        if ($request->hasFile('images')) {
+            // $space->images()->delete(); // Удаляем старые изображения
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images', 'public');
+                $space->images()->create(['path' => $path]);
+            }
+        }
+
+        return redirect()->route('spaces.index')->with('success', 'Место успешно обновлено.');
     }
 
     /**

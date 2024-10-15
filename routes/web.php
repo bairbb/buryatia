@@ -20,6 +20,14 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/spaces', [SpaceController::class, 'index'])->name('spaces.index');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/spaces/create', [SpaceController::class, 'create'])->name('spaces.create');
+    Route::post('/spaces', [SpaceController::class, 'store'])->name('spaces.store');
+    Route::get('/spaces/{slug}/edit', [SpaceController::class, 'edit'])->name('spaces.edit');
+    Route::post('/spaces/{slug}', [SpaceController::class, 'update'])->name('spaces.update');
+    Route::delete('/spaces/{space}', [SpaceController::class, 'destroy'])->name('spaces.destroy');
+});
+
 Route::get('/spaces/{slug}', [SpaceController::class, 'show'])->name('spaces.show');
 
 require __DIR__.'/auth.php';

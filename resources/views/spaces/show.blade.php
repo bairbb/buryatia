@@ -11,20 +11,18 @@
       <div class="w-2/3">
         <div class="mb-4">
           @if ($space->images->isNOtEmpty())
-          <img id="main-image" src="{{ asset($space->images->first()->path) }}" alt="{{ $space->title }}"
-            class="w-full h-auto rounded-lg shadow-md">
+            <img id="main-image" src="{{ asset('storage/' . $space->images->first()->path) }}" alt="{{ $space->title }}" class="w-full  rounded-lg shadow-md">
           @else
-          <div class="w-full h-96 bg-gray-200 flex items-center justify-center">
-            <span class="text-gray-500">Нет изображения</span>
-          </div>
+            <div class="w-full h-96 bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-500">Нет изображения</span>
+            </div>
           @endif
         </div>
         <div class="grid grid-cols-5 gap-2">
           @if($space->images)
-          @foreach($space->images as $image)
-          <img src="{{ $image->path }}" alt="{{ $space->title }}"
-            class="w-full h-20 object-cover rounded cursor-pointer thumbnail" onclick="changeImage(this.src)">
-          @endforeach
+            @foreach($space->images as $image)
+              <img src="{{ asset ('storage/' . $image->path) }}" alt="{{ $space->title }}" class="w-full h-20 object-cover rounded cursor-pointer thumbnail" onclick="changeImage(this.src)">
+            @endforeach
           @endif
         </div>
       </div>
@@ -35,12 +33,18 @@
         <div class="border p-4 rounded-lg">
           <p class="mb-2"><strong>Адрес:</strong> {{ $space->address }}</p>
           <p class="mb-2"><strong>Телефон:</strong> {{ $space->phone }}</p>
-          <p class="mb-2"><strong>Веб-сайт:</strong> <a href="{{ $space->website }}"
-              class="text-blue-500 hover:underline">{{ $space->website }}</a></p>
-          <p class="mb-2"><strong>Почта:</strong> <a href="mailto:{{ $space->email }}"
-              class="text-blue-500 hover:underline">{{ $space->email }}</a></p>
+          <p class="mb-2"><strong>Веб-сайт:</strong>
+            <a href="{{ $space->website }}" target="_blank" class="text-blue-500 hover:underline">
+              {{ $space->website }}
+            </a>
+          </p>
+          <p class="mb-2"><strong>Почта:</strong>
+            <a href="mailto:{{ $space->email }}" class="text-blue-500 hover:underline">
+              {{ $space->email }}
+            </a>
+          </p>
           <p class="mb-2"><strong>Геолокация:</strong>
-            <a href="https://www.yandex.ru/maps/?ll={{ $space->latitude }},{{ $space->longitude }}&z=14" target="_blank" class="text-blue-500">
+            <a href="https://www.yandex.ru/maps/?ll={{ $space->longitude }},{{ $space->latitude }}&z=14" target="_blank" class="text-blue-500">
               {{ $space->latitude }}, {{ $space->longitude }}
             </a>
           </p>
@@ -114,8 +118,8 @@
         document.getElementById('map'),
         {
           location: {
-            // center: [{{ $space->latitude }}, {{ $space->longitude }}],
-            center: [107.640243, 51.804262],
+            center: [{{ $space->longitude }}, {{ $space->latitude }}],
+            // center: [107.640243, 51.804262],
             zoom: 17
           }
         }
@@ -127,8 +131,8 @@
       // Инициализируйте маркер
       const marker = new YMapDefaultMarker(
         {
-          // coordinates: [{{ $space->latitude }}, {{ $space->longitude }}],
-          coordinates: [107.640243, 51.804262],
+          coordinates: [{{ $space->longitude }}, {{ $space->latitude }}],
+          // coordinates: [107.640243, 51.804262],
           draggable: false
         }
       );
@@ -140,12 +144,6 @@
   <style>
     .thumbnail.active {
       border: 2px solid #3490dc;
-    }
-
-    #map {
-      margin: 0;
-      /* width: 100%; */
-      /* height: 100%; */
     }
   </style>
 </x-app-layout>

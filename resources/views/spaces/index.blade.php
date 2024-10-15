@@ -34,7 +34,7 @@
       {{-- основное содержимое --}}
       <div class="w-3/4">
         @if($spaces->count() > 0)
-          <div class="flex flex-wrap -mx-2">
+          <div class="flex flex-wrap ">
             @foreach($spaces as $space)
               @include('spaces._space_card', ['space' => $space])
             @endforeach

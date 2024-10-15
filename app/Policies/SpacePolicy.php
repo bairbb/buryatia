@@ -35,7 +35,7 @@ class SpacePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Space $space): bool
+    public function update(User $user): bool
     {
         return $user->is_admin;
     }
