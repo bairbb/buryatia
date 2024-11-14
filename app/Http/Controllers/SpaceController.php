@@ -45,21 +45,20 @@ class SpaceController extends Controller
         $this->authorize('create', Space::class);
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'district' => 'required|exists:districts,id',
-            'address' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|email',
-            'website' => 'required|url',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'how_to_get' => 'required|string',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'address' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'email' => 'nullable|email',
+            'website' => 'nullable|url',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+            'how_to_get' => 'nullable|string',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $space = Space::create([
             'title' => $validatedData['title'],
-            'slug' => Str::slug($validatedData['title']),
             'district_id' => $validatedData['district'],
             'longitude' => $validatedData['longitude'],
             'latitude' => $validatedData['latitude'],
@@ -84,19 +83,17 @@ class SpaceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($slug)
+    public function show(Space $space)
     {
-        $space = Space::where('slug', $slug)->with(['images', 'district'])->firstOrFail();
         return view('spaces.show', compact('space'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
+    public function edit(Space $space)
     {
         $this->authorize('update', Space::class);
-        $space = Space::where('slug', $slug)->with(['images', 'district'])->firstOrFail();
         $districts = District::all();
         return view('spaces.edit', compact('space', 'districts'));
     }
@@ -104,27 +101,25 @@ class SpaceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, Space $space)
     {
         $this->authorize('update', Space::class);
-        $space = Space::where('slug', $slug)->with(['images', 'district'])->firstOrFail();
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'district' => 'required|exists:districts,id',
-            'address' => 'required|string',
-            'phone' => 'required|string',
-            'email' => 'required|string',
-            'website' => 'required|url',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'how_to_get' => 'required|string',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'address' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'email' => 'nullable|string',
+            'website' => 'nullable|url',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+            'how_to_get' => 'nullable|string',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $space->update([
             'title' => $request->title,
-            'slug' => Str::slug($request->title),
             'district_id' => $request->district,
             'longitude' => $request->longitude,
             'latitude' => $request->latitude,
@@ -137,21 +132,22 @@ class SpaceController extends Controller
         ]);
 
         if ($request->hasFile('images')) {
-            // $space->images()->delete(); // Удаляем старые изображения
             foreach ($request->file('images') as $image) {
                 $path = $image->store('images', 'public');
                 $space->images()->create(['path' => $path]);
             }
         }
 
-        return redirect()->route('spaces.index')->with('success', 'Место успешно обновлено.');
+        return redirect()->route('spaces.show', $space)->with('success', 'Место успешно обновлено.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Space $space)
+    public function delete(Space $space)
     {
-        //
+        $this->authorize('delete', Space::class);
+        $space->delete();
+        return redirect()->route('spaces.index')->with('success', 'Место успешно удалено.');
     }
 }

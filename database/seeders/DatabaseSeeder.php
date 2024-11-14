@@ -17,13 +17,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+         User::factory()->create([
+           'name' => 'Test Admin',
+           'email' => 'bair3b@gmail.com',
+           'password' => bcrypt('cidjik-kocky1-wushaH'),
+           'is_admin' => true,
+         ]);
 
         Space::factory()
-            ->count(10)
+            ->count(20)
             ->create()
             ->each(function ($space) {
                 Image::factory()->count(3)->create(['space_id' => $space->id]);

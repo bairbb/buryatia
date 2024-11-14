@@ -1,7 +1,25 @@
 <x-app-layout>
-  <x-slot name="header">
-    <h1 class="text-4xl font-bold">{{ $space->title }}</h1>
-  </x-slot>
+    <x-slot name="header">
+        <div class="flex justify-between">
+            <h1 class="text-4xl font-bold">{{ $space->title }}</h1>
+            <div class="flex gap-2">
+                @auth
+                    @if(Auth::user()->is_admin)
+                        <a href="{{ route('spaces.edit', $space) }}">
+                            <x-primary-button>редактировать место</x-primary-button>
+                        </a>
+                        <form action="{{ route('spaces.delete', $space) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <x-primary-button type="submit" onclick="return confirm('Вы уверены, что хотите удалить это место?')">
+                                удалить место
+                            </x-primary-button>
+                        </form>
+                    @endif
+                @endif
+            </div>
+        </div>
+    </x-slot>
 
 
   <div class="container mx-auto px-4 sm:px-6 lg:p-8">
@@ -9,11 +27,11 @@
 
       {{-- BLOCK IMAGE --}}
       <div class="w-2/3">
-        <div class="mb-4">
+        <div class="mb-4 h-[700px]">
           @if ($space->images->isNOtEmpty())
-            <img id="main-image" src="{{ asset('storage/' . $space->images->first()->path) }}" alt="{{ $space->title }}" class="w-full  rounded-lg shadow-md">
+            <img id="main-image" src="{{ asset('storage/' . $space->images->first()->path) }}" alt="{{ $space->title }}" class="w-full h-full object-cover overflow-hidden rounded-lg shadow-md">
           @else
-            <div class="w-full h-96 bg-gray-200 flex items-center justify-center">
+            <div class="w-full h-full bg-gray-200 flex items-center justify-center rounded-lg shadow-md">
               <span class="text-gray-500">Нет изображения</span>
             </div>
           @endif
@@ -68,7 +86,7 @@
     {{-- END BLOCK DESCRIPTION --}}
 
     {{-- BLOCK MAP --}}
-    <div id="map" class="h-96"></div>
+    <div id="map" class="h-[400px]"></div>
     {{-- END BLOCK MAP --}}
 
     {{-- <div class="mt-8">

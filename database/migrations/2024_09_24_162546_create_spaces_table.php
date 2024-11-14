@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('district_id')->constrained()->onDelete('cascade');
             $table->string('title');
-            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();

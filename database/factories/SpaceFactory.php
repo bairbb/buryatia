@@ -26,7 +26,7 @@ class SpaceFactory extends Factory
 
         return [
             'title' => $title,
-            'slug' => Str::slug($title),
+//            'slug' => Str::slug($title),
             'district_id' => District::inRandomOrder()->first()->id,
             'description' => $this->faker->paragraph,
             // 'image_path' => $this->faker->imageUrl(),

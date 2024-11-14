@@ -92,7 +92,7 @@
       </x-responsive-nav-link>
       <x-responsive-nav-link :href="route('spaces.index')" :active="request()->routeIs('spaces.index')">
         {{ __('Все места') }}
-        </x-nav-link>
+      </x-responsive-nav-link>
     </div>
 
     <!-- Responsive Settings Options -->

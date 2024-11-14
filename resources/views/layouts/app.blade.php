@@ -17,23 +17,23 @@
 </head>
 
 <body class="font-sans antialiased">
-  <div class="min-h-screen">
-    @include('layouts.navigation')
+    <div class="min-h-screen">
+        @include('layouts.navigation')
 
-    <!-- Page Heading -->
-    @isset($header)
-    <div class="shadow">
-      <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        {{ $header }}
-      </div>
+        <!-- Page Heading -->
+        @isset($header)
+            <div class="shadow">
+                <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </div>
+        @endisset
+
+        <!-- Page Content -->
+        <main>
+            {{ $slot }}
+        </main>
     </div>
-    @endisset
-
-    <!-- Page Content -->
-    <main>
-      {{ $slot }}
-    </main>
-  </div>
 </body>
 
 </html>
