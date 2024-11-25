@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
+    <x-slot name="title">
         <div class="flex justify-between">
             <h1 class="text-4xl font-bold">{{ $space->title }}</h1>
             <div class="flex gap-2">
@@ -88,22 +88,6 @@
     {{-- BLOCK MAP --}}
     <div id="map" class="h-[400px]"></div>
     {{-- END BLOCK MAP --}}
-
-    {{-- <div class="mt-8">
-      @can('update', $space)
-      <a href="{{ route('spaces.edit', $space) }}"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 mr-2">Редактировать</a>
-      @endcan
-
-      @can('delete', $space)
-      <form action="{{ route('spaces.destroy', $space) }}" method="POST" class="inline">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-          onclick="return confirm('Вы уверены, что хотите удалить это пространство?')">Удалить</button>
-      </form>
-      @endcan
-    </div> --}}
   </div>
 
   <script src="https://api-maps.yandex.ru/v3/?apikey={{ config('app.map_key') }}&lang=ru_RU"></script>

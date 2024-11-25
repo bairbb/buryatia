@@ -21,10 +21,10 @@
         @include('layouts.navigation')
 
         <!-- Page Heading -->
-        @isset($header)
+        @isset($title)
             <div class="shadow">
                 <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+                    {{ $title }}
                 </div>
             </div>
         @endisset
@@ -33,6 +33,18 @@
         <main>
             {{ $slot }}
         </main>
+
+        <footer class="mt-8">
+            <div class="shadow">
+                <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between">
+                        <span></span>
+                        <span>&copy; 2024 Все права защищены</span>
+                        <a href="#">Предложить место</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 

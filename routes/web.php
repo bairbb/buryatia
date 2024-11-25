@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SpaceController;
 use Illuminate\Support\Facades\Route;
@@ -26,8 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/spaces/{space}/edit', [SpaceController::class, 'edit'])->name('spaces.edit');
     Route::patch('/spaces/{space}', [SpaceController::class, 'update'])->name('spaces.update');
     Route::delete('/spaces/{space}', [SpaceController::class, 'delete'])->name('spaces.delete');
+    Route::delete('/images/{image}', [ImageController::class, 'delete'])->name('images.delete');
 });
 
 Route::get('/spaces/{space}', [SpaceController::class, 'show'])->name('spaces.show');
+Route::get('/{district}', [DistrictController::class, 'show'])->name('districts.show');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

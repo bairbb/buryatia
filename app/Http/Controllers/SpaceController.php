@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Space\StoreSpaceRequest;
+use App\Http\Requests\Space\UpdateSpaceRequest;
 use App\Models\Space;
 use App\Models\District;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -16,13 +18,15 @@ class SpaceController extends Controller
      */
     public function index(Request $request)
     {
-        $districtSlug = $request->input('district');
-        $spaces = Space::with(['images', 'district'])
-            ->when($districtSlug, function ($query) use ($districtSlug) {
-                return $query->whereHas('district', function ($q) use ($districtSlug) {
-                    $q->where('slug', $districtSlug);
-                });
-            })->get();
+//        $districtSlug = $request->input('district');
+//        $spaces = Space::with(['images', 'district'])
+//            ->when($districtSlug, function ($query) use ($districtSlug) {
+//                return $query->whereHas('district', function ($q) use ($districtSlug) {
+//                    $q->where('slug', $districtSlug);
+//                });
+//            })->get();
+//        $districts = District::all();
+        $spaces = Space::with(['images', 'district'])->paginate(15);
         $districts = District::all();
         return view('spaces.index', compact('spaces', 'districts'));
     }
@@ -40,34 +44,21 @@ class SpaceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSpaceRequest $request)
     {
         $this->authorize('create', Space::class);
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'district' => 'required|exists:districts,id',
-            'address' => 'nullable|string',
-            'phone' => 'nullable|string',
-            'email' => 'nullable|email',
-            'website' => 'nullable|url',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
-            'how_to_get' => 'nullable|string',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
 
         $space = Space::create([
-            'title' => $validatedData['title'],
-            'district_id' => $validatedData['district'],
-            'longitude' => $validatedData['longitude'],
-            'latitude' => $validatedData['latitude'],
-            'description' => $validatedData['description'],
-            'address' => $validatedData['address'],
-            'phone' => $validatedData['phone'],
-            'email' => $validatedData['email'],
-            'website' => $validatedData['website'],
-            'how_to_get' => $validatedData['how_to_get'],
+            'title' => $request['title'],
+            'district_id' => $request['district'],
+            'longitude' => $request['longitude'],
+            'latitude' => $request['latitude'],
+            'description' => $request['description'],
+            'address' => $request['address'],
+            'phone' => $request['phone'],
+            'email' => $request['email'],
+            'website' => $request['website'],
+            'how_to_get' => $request['how_to_get'],
         ]);
 
         if ($request->hasFile('images')) {
@@ -77,7 +68,7 @@ class SpaceController extends Controller
             }
         }
 
-        return redirect()->route('spaces.index')->with('success', 'Место успешно добавлено.');
+        return to_route('spaces.index')->with('success', 'Место успешно добавлено.');
     }
 
     /**
@@ -101,34 +92,21 @@ class SpaceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Space $space)
+    public function update(UpdateSpaceRequest $request, Space $space)
     {
         $this->authorize('update', Space::class);
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'district' => 'required|exists:districts,id',
-            'address' => 'nullable|string',
-            'phone' => 'nullable|string',
-            'email' => 'nullable|string',
-            'website' => 'nullable|url',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
-            'how_to_get' => 'nullable|string',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
 
         $space->update([
-            'title' => $request->title,
-            'district_id' => $request->district,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
-            'description' => $request->description,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'website' => $request->website,
-            'how_to_get' => $request->how_to_get,
+            'title' => $request['title'],
+            'district_id' => $request['district'],
+            'longitude' => $request['longitude'],
+            'latitude' => $request['latitude'],
+            'description' => $request['description'],
+            'address' => $request['address'],
+            'phone' => $request['phone'],
+            'email' => $request['email'],
+            'website' => $request['website'],
+            'how_to_get' => $request['how_to_get'],
         ]);
 
         if ($request->hasFile('images')) {
@@ -138,7 +116,7 @@ class SpaceController extends Controller
             }
         }
 
-        return redirect()->route('spaces.show', $space)->with('success', 'Место успешно обновлено.');
+        return to_route('spaces.show', $space)->with('success', 'Место успешно обновлено.');
     }
 
     /**
@@ -148,6 +126,6 @@ class SpaceController extends Controller
     {
         $this->authorize('delete', Space::class);
         $space->delete();
-        return redirect()->route('spaces.index')->with('success', 'Место успешно удалено.');
+        return to_route('spaces.index')->with('success', 'Место успешно удалено.');
     }
 }

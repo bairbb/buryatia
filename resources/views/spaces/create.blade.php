@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
+    <x-slot name="title">
         <h1 class="text-4xl font-bold">Добавить новое место</h1>
     </x-slot>
 

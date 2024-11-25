@@ -1,20 +1,20 @@
 <x-app-layout>
     <x-slot name="title">
         <div class="flex justify-between">
-            <h1 class="text-2xl font-bold">Все районы</h1>
+            <h1 class="text-2xl font-bold">{{ $selectedDistrict->title }}<h1>
             @auth
                 @if(Auth::user()->is_admin)
                     <a href="{{ route('spaces.create') }}">
                         <x-primary-button>добавить место</x-primary-button>
                     </a>
-                @endif
+               @endif
             @endif
         </div>
     </x-slot>
 
     <div class="container mx-auto px-4 sm:px-6 lg:p-8">
         <div class="flex py-4 gap-8">
-        {{-- боковое меню --}}
+            {{-- боковое меню --}}
             <aside class="w-1/4 mr-5 py-2">
                 <ul>
                     <a href="{{ route('spaces.index') }}" class="hover:text-blue-500">
@@ -32,7 +32,7 @@
                 </ul>
             </aside>
 
-        {{-- основное содержимое --}}
+            {{-- основное содержимое --}}
             <div class="w-3/4">
                 @if($spaces->count() > 0)
                     <div class="flex flex-wrap ">

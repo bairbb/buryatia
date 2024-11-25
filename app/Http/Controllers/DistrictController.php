@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\District;
+use App\Models\Space;
 use Illuminate\Http\Request;
 
 class DistrictController extends Controller
@@ -34,9 +35,14 @@ class DistrictController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(District $district)
+    public function show($slug)
     {
-        //
+        $districts = District::all();
+        $selectedDistrict = District::where('slug', $slug)->firstOrFail();
+        $spaces = Space::where('district_id', $selectedDistrict->id)
+            ->with('images')
+            ->paginate(15);
+        return view('districts.show', compact('districts', 'selectedDistrict', 'spaces'));
     }
 
     /**

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Models\Space;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -58,8 +61,15 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Image $image)
+    public function delete(Image $image)
     {
-        //
+        $this->authorize('delete', Space::class);
+//        dd(storage_path('app/public/' . $image->path));
+        if ($image->path && file_exists(storage_path('app/public/' . $image->path))) {
+            unlink(storage_path('app/public/' . $image->path));
+        }
+        $image->delete();
+        return redirect()->back()->with('message', 'Изображение успешно удалено.');
     }
 }
+

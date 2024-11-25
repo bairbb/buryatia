@@ -43,7 +43,7 @@ class SpacePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Space $space): bool
+    public function delete(User $user): bool
     {
         return $user->is_admin;
     }
