@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/spaces', [SpaceController::class, 'index'])->name('spaces.index');
+Route::get('/district/{district}', [DistrictController::class, 'show'])->name('districts.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/spaces/create', [SpaceController::class, 'create'])->name('spaces.create');
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/spaces/{space}', [SpaceController::class, 'show'])->name('spaces.show');
-Route::get('/{district}', [DistrictController::class, 'show'])->name('districts.show');
 
-require __DIR__ . '/auth.php';
+Route::get('/search', [SpaceController::class, 'search'])->name('search');
+
+
+require __DIR__.'/auth.php';

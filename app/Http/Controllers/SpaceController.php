@@ -8,7 +8,6 @@ use App\Models\Space;
 use App\Models\District;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class SpaceController extends Controller
 {
@@ -26,7 +25,7 @@ class SpaceController extends Controller
 //                });
 //            })->get();
 //        $districts = District::all();
-        $spaces = Space::with(['images', 'district'])->paginate(15);
+        $spaces = Space::with(['images', 'district'])->paginate(12);
         $districts = District::all();
         return view('spaces.index', compact('spaces', 'districts'));
     }
@@ -127,5 +126,14 @@ class SpaceController extends Controller
         $this->authorize('delete', Space::class);
         $space->delete();
         return to_route('spaces.index')->with('success', 'Место успешно удалено.');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+
+        $spaces = Space::search($query)->paginate(12);
+
+        return view('search.results', compact('spaces', 'query'));
     }
 }
