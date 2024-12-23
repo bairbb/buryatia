@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="title">
         <div class="flex justify-between">
-            <h1 class="lg:text-2xl text-xl font-bold">Все районы</h1>
+            <h2 class="lg:text-2xl text-xl font-bold">Все районы</h2>
             @auth
                 @if(Auth::user()->is_admin)
                     <a href="{{ route('spaces.create') }}">

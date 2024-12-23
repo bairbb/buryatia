@@ -4,11 +4,17 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SpaceController;
+use App\Models\Space;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $spaces = Space::latest()->take(4)->get();
+    return view('home', compact('spaces'));
+})->name('home');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
