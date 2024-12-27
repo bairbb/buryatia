@@ -1,9 +1,9 @@
 <footer class="mt-10">
     <div class="shadow">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col">
-            <div class="flex justify-between items-center border-t border-gray-300 py-4">
+            <div class="flex justify-around items-center border-t border-gray-300 py-4">
                 <div class="flex flex-col">
-                    <a href="#">политика конфиденциальности</a>
+                    <a href="{{ route('privacy') }}">политика конфиденциальности</a>
                     <a href="#">предложить место</a>
                 </div>
                 <div class="flex flex-col md:gap-6 gap-2 p-4">
