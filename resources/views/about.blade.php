@@ -1,4 +1,8 @@
 <x-app-layout>
+    <x-slot:head_title>
+        О Бурятии
+    </x-slot:head_title>
+
     <x-slot name="title">
         <h2 class="lg:text-2xl text-xl font-bold">
             {{ __('О Бурятии') }}

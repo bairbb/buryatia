@@ -41,6 +41,7 @@ class DistrictController extends Controller
         $selectedDistrict = District::where('slug', $slug)->firstOrFail();
         $spaces = Space::where('district_id', $selectedDistrict->id)
             ->with('images')
+            ->latest()
             ->paginate(12);
         return view('districts.show', compact('districts', 'selectedDistrict', 'spaces'));
     }

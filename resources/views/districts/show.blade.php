@@ -1,4 +1,8 @@
 <x-app-layout>
+    <x-slot:head_title>
+        {{ $selectedDistrict->title }}
+    </x-slot:head_title>
+
     <x-slot name="title">
         <div class="flex justify-between">
             <h1 class="lg:text-2xl text-xl font-bold">{{ $selectedDistrict->title }}<h1>

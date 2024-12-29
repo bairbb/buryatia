@@ -15,7 +15,7 @@ class SpaceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
 //        $districtSlug = $request->input('district');
 //        $spaces = Space::with(['images', 'district'])
@@ -25,7 +25,7 @@ class SpaceController extends Controller
 //                });
 //            })->get();
 //        $districts = District::all();
-        $spaces = Space::with(['images', 'district'])->paginate(12);
+        $spaces = Space::with(['images', 'district'])->latest()->paginate(12);
         $districts = District::all();
         return view('spaces.index', compact('spaces', 'districts'));
     }
@@ -131,9 +131,7 @@ class SpaceController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('query');
-
         $spaces = Space::search($query)->paginate(12);
-
         return view('search.results', compact('spaces', 'query'));
     }
 }

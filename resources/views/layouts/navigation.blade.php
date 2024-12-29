@@ -15,9 +15,9 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Главная') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+{{--                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">--}}
+{{--                        {{ __('Dashboard') }}--}}
+{{--                    </x-nav-link>--}}
                     <x-nav-link :href="route('spaces.index')" :active="request()->routeIs('spaces.index')">
                         {{ __('Все места') }}
                     </x-nav-link>
@@ -76,15 +76,15 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
-                @else
-                    <div class="hidden space-x-8 lg:-my-px lg:ms-10 lg:flex">
-                        <x-nav-link :href="route('login')" :active="request()->routeIs('dashboard')">
-                            {{ __('Log in') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('register')" :active="request()->routeIs('dashboard')">
-                            {{ __('Register') }}
-                        </x-nav-link>
-                    </div>
+{{--                @else--}}
+{{--                    <div class="hidden space-x-8 lg:-my-px lg:ms-10 lg:flex">--}}
+{{--                        <x-nav-link :href="route('login')" :active="request()->routeIs('dashboard')">--}}
+{{--                            {{ __('Log in') }}--}}
+{{--                        </x-nav-link>--}}
+{{--                        <x-nav-link :href="route('register')" :active="request()->routeIs('dashboard')">--}}
+{{--                            {{ __('Register') }}--}}
+{{--                        </x-nav-link>--}}
+{{--                    </div>--}}
                 @endif
             </div>
 
@@ -110,9 +110,9 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Главная') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+{{--            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">--}}
+{{--                {{ __('Dashboard') }}--}}
+{{--            </x-responsive-nav-link>--}}
             <x-responsive-nav-link :href="route('spaces.index')" :active="request()->routeIs('spaces.index')">
                 {{ __('Все места') }}
             </x-responsive-nav-link>
@@ -144,15 +144,15 @@
                         </x-responsive-nav-link>
                     </form>
                 </div>
-            @else
-                <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('login')">
-                        {{ __('Log in') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('register')">
-                        {{ __('Register') }}
-                    </x-responsive-nav-link>
-                </div>
+{{--            @else--}}
+{{--                <div class="mt-3 space-y-1">--}}
+{{--                    <x-responsive-nav-link :href="route('login')">--}}
+{{--                        {{ __('Log in') }}--}}
+{{--                    </x-responsive-nav-link>--}}
+{{--                    <x-responsive-nav-link :href="route('register')">--}}
+{{--                        {{ __('Register') }}--}}
+{{--                    </x-responsive-nav-link>--}}
+{{--                </div>--}}
             @endif
         </div>
     </div>

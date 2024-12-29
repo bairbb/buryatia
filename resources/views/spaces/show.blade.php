@@ -1,4 +1,7 @@
 <x-app-layout>
+    <x-slot:head_title>
+        {{ $space->title }}
+    </x-slot:head_title>
     <x-slot name="title">
         <div class="flex justify-between">
             <h1 class="lg:text-4xl text-xl font-bold">{{ $space->title }}</h1>
