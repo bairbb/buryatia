@@ -1,7 +1,6 @@
 FROM php:8.3-fpm
 
-RUN apt-get update && apt-get install -y \
-    apt-utils \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     libpng-dev \
     zip \
@@ -12,6 +11,8 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libcurl4-openssl-dev \
     pkg-config \
+    nodejs \
+    npm \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install bcmath \
@@ -27,7 +28,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/local/bin
 
 WORKDIR /var/www
-
-RUN apt-get update && apt-get install -y nodejs npm
 
 CMD ["php-fpm"]
