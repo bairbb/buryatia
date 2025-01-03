@@ -2,7 +2,6 @@ FROM php:8.3-fpm
 
 RUN apt-get update && apt-get install -y \
     apt-utils \
-    freetype-dev \
     curl \
     libpng-dev \
     zip \
@@ -13,7 +12,6 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libcurl4-openssl-dev \
     pkg-config \
-    git \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install bcmath \
