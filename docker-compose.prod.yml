@@ -39,7 +39,7 @@ services:
       - ./tmp/etc/letsencrypt:/etc/letsencrypt
       - ./tmp/var/log/letsencrypt:/var/log/letsencrypt
       - ./:/var/www
-    command: certonly --webroot -w /var/www -d buryatia.space -d www.buryatia.space
+    command: certonly --webroot -w /var/www -d buryatia.space -d www.buryatia.space --email bair3b@gmail.com
 
   db:
     image: mysql/mysql-server:8.0
