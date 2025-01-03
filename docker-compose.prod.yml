@@ -12,21 +12,17 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    depends_on:
-      - app
     container_name: buryatia_nginx
     networks:
       - buryatia
 
-  app:
+  php:
     build:
       context: _deploy
       dockerfile: Dockerfile
     volumes:
       - ./:/var/www
-    depends_on:
-      - db
-    container_name: buryatia_app
+    container_name: buryatia_php
     networks:
       - buryatia
 #
