@@ -10,6 +10,7 @@ services:
     container_name: buryatia_php
     networks:
       - buryatia
+
   nginx:
     image: nginx:latest
     volumes:
