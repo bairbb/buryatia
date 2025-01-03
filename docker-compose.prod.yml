@@ -5,8 +5,9 @@ services:
     build:
       context: _deploy
       dockerfile: Dockerfile
+    image: php8.3
     volumes:
-      - ./:/var/www
+      - .:/var/www
     container_name: buryatia_php
     networks:
       - buryatia
