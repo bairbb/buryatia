@@ -64,7 +64,6 @@ class ImageController extends Controller
     public function delete(Image $image)
     {
         $this->authorize('delete', Space::class);
-//        dd(storage_path('app/public/' . $image->path));
         if ($image->path && file_exists(storage_path('app/public/' . $image->path))) {
             unlink(storage_path('app/public/' . $image->path));
         }

@@ -17,14 +17,6 @@ class SpaceController extends Controller
      */
     public function index()
     {
-//        $districtSlug = $request->input('district');
-//        $spaces = Space::with(['images', 'district'])
-//            ->when($districtSlug, function ($query) use ($districtSlug) {
-//                return $query->whereHas('district', function ($q) use ($districtSlug) {
-//                    $q->where('slug', $districtSlug);
-//                });
-//            })->get();
-//        $districts = District::all();
         $spaces = Space::with(['images', 'district'])->latest()->paginate(12);
         $districts = District::all();
         return view('spaces.index', compact('spaces', 'districts'));

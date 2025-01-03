@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('space_id')->constrained()->onDelete('cascade');
             $table->string('path');
-            $table->string('alt')->nullable();
             $table->timestamps();
         });
     }
