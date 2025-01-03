@@ -1,6 +1,15 @@
 version: '3.9'
 
 services:
+  php:
+    build:
+      context: _deploy
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    container_name: buryatia_php
+    networks:
+      - buryatia
   nginx:
     image: nginx:latest
     volumes:
@@ -16,15 +25,6 @@ services:
     networks:
       - buryatia
 
-  php:
-    build:
-      context: _deploy
-      dockerfile: Dockerfile
-    volumes:
-      - ./:/var/www
-    container_name: buryatia_php
-    networks:
-      - buryatia
 #
 #  certbot:
 #    image: certbot/certbot
