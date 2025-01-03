@@ -2,16 +2,17 @@ FROM php:8.3-fpm
 
 RUN apt-get update && apt-get install -y \
     apt-utils \
-    libpq-dev \
+    freetype-dev \
+    curl \
     libpng-dev \
+    zip \
+    unzip \
+    zlib1g-dev \
     libzip-dev \
-    zip unzip \
-#    freetype \
-#    libjpeg-turbo \
-#    libpng \
-#    freetype-dev \
-#    libjpeg-turbo-dev \
-#    freetype-dev \
+    libmcrypt-dev \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    pkg-config \
     git \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo_mysql \
@@ -20,7 +21,6 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-#COPY ./_deploy/nginx.conf /etc/nginx/http.d/default.conf
 COPY ./_deploy/php.ini /usr/local/etc/php/conf.d/php.ini
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -29,3 +29,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/local/bin
 
 WORKDIR /var/www
+
+RUN apt-get update && apt-get install -y nodejs npm
+CMD ["node", "-v"]

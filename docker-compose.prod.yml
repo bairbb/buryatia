@@ -5,9 +5,13 @@ services:
     image: nginx:latest
     volumes:
       - ./:/var/www
+      - ./_deploy/ssl/fullchain.pem:/etc/ssl/certs/dhparam.pem
+      - ./_deploy/ssl/privkey.pem:/etc/ssl/private/key.pem
+      - ./_deploy/ssl/fullchain.pem:/etc/ssl/certs/cert.pem
       - ./_deploy/conf.d:/etc/nginx/conf.d
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - app
     container_name: buryatia_nginx
@@ -25,6 +29,17 @@ services:
     container_name: buryatia_app
     networks:
       - buryatia
+
+  certbot:
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    container_name: certbot
+    volumes:
+      - ./tmp/etc/letsencrypt:/etc/letsencrypt
+      - ./tmp/var/log/letsencrypt:/var/log/letsencrypt
+      - ./:/var/www
+    command: certonly --webroot -w /var/www -d buryatia.space -d www.buryatia.space
 
   db:
     image: mysql/mysql-server:8.0
