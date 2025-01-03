@@ -18,7 +18,7 @@ services:
 #      - ./_deploy/ssl/fullchain.pem:/etc/ssl/certs/dhparam.pem
 #      - ./_deploy/ssl/privkey.pem:/etc/ssl/private/key.pem
 #      - ./_deploy/ssl/fullchain.pem:/etc/ssl/certs/cert.pem
-      - ./_deploy/conf.d:/etc/nginx/conf.d
+      - ./_deploy/conf.d/nginx.conf:/etc/nginx/conf.d/nginx.conf
     ports:
       - "80:80"
       - "443:443"
