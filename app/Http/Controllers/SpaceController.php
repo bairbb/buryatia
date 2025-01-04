@@ -107,7 +107,7 @@ class SpaceController extends Controller
             }
         }
 
-        return to_route('spaces.show', $space)->with('success', 'Место успешно обновлено.');
+        return to_route('spaces.index')->with('success', 'Место успешно обновлено.');
     }
 
     /**
