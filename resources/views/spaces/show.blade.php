@@ -91,7 +91,7 @@
             </div>
             <div class="mb-8 shadow px-2 py-4">
                 <h2 class="text-xl font-bold pb-6">Как проехать</h2>
-                <pre class="">{{ $space->how_to_get }}</pre>
+                <p class="">{{ $space->how_to_get }}</p>
             </div>
         </div>
         {{-- END BLOCK DESCRIPTION --}}
