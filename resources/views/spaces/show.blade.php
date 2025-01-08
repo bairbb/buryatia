@@ -84,16 +84,6 @@
         {{-- END BLOCK MAIN CONTENT --}}
 
         {{-- BLOCK DESCRIPTION --}}
-{{--        <div class="py-2">--}}
-{{--            <div class="mb-8 shadow px-2 py-4">--}}
-{{--                <h2 class="text-xl font-bold pb-6">Описание</h2>--}}
-{{--                <p class="">{{ $space->description }}</p>--}}
-{{--            </div>--}}
-{{--            <div class="mb-8 shadow px-2 py-4">--}}
-{{--                <h2 class="text-xl font-bold pb-6">Как проехать</h2>--}}
-{{--                <p class="">{{ $space->how_to_get }}</p>--}}
-{{--            </div>--}}
-{{--        </div>--}}
         <details class="mb-6 py-2">
             <summary class="text-xl font-semibold bg-gray-200 px-4">Описание</summary>
             <p class=" p-4">{{ $space->description }}</p>
