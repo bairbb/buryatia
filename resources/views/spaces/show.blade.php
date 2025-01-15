@@ -99,7 +99,6 @@
         {{-- END BLOCK MAP --}}
     </div>
 
-    <script src="https://api-maps.yandex.ru/v3/?apikey={{ config('app.map_key') }}&lang=ru_RU"></script>
 
     <script>
         function changeImage(src) {

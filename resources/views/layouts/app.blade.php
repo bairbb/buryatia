@@ -14,17 +14,13 @@
     <link rel="icon" href="/favicon.ico">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/main.js'])
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZXKTBSSNT"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'G-MZXKTBSSNT');
-    </script>
+    <!-- Yandex map -->
+    <script src="https://api-maps.yandex.ru/v3/?apikey={{ config('app.map_key') }}&lang=ru_RU"></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -47,6 +43,13 @@
 
     @include('layouts.footer')
 </div>
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MZXKTBSSNT');
+</script>
 </body>
 
 </html>

@@ -1,10 +1,4 @@
 <x-app-layout>
-    <x-slot name="title">
-        <h2 class="lg:text-2xl text-xl font-bold">
-            {{ __('Главная') }}
-        </h2>
-    </x-slot>
-
     <section class="max-h-[38rem] overflow-hidden rounded-b-3xl">
         <img src="{{ asset('storage/images/mainbg.jpg') }}" alt="main_banner" class="object-cover object-bottom h-auto w-full">
     </section>
