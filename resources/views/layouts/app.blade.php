@@ -14,7 +14,7 @@
     <link rel="icon" href="/favicon.ico">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/main.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZXKTBSSNT"></script>
