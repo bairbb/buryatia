@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}">
-                        <x-application-logo class="block h-7 w-auto text-white fill-current"></x-application-logo>
+                        <x-application-logo class="block h-6 w-auto text-white fill-current"></x-application-logo>
                     </a>
                 </div>
 
